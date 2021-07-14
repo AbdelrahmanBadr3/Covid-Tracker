@@ -1,0 +1,16 @@
+{
+  "userStates": [
+    {
+      "type": "Viewer",
+      "variant": "primary"
+    },
+    {
+      "type": "Negative",
+      "variant": "success"
+    },
+    {
+      "type": "Postive",
+      "variant": "danger"
+    }
+  ]
+}
