@@ -4,22 +4,6 @@ import Geocode from "react-geocode";
 Geocode.setApiKey(process.env.REACT_APP_GEOCODE_TOKEN);
 Geocode.setLanguage(process.env.REACT_APP_GEOCODE_LANGUAGE);
 Geocode.setLocationType(process.env.REACT_APP_GEOCODE_LOCATION_TYPE);
-// const defualtState = {
-//   usersData: [],
-//   isLoading: false,
-//   error: false,
-//   currentUser: {
-//     userState: {
-//       type: "Viewer",
-//       variant: "primary",
-//     },
-//   },
-//   currentUserLocation: {
-//     latitude: "",
-//     longitude: "",
-//     address: "",
-//   },
-// };
 const userSlice = createSlice({
   name: "users",
   initialState: {

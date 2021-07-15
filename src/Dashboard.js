@@ -8,6 +8,8 @@ import { useFirestoreConnect } from "react-redux-firebase";
 
 function DashboardFire() {
   useFirestoreConnect(["users"]);
+  const { currentUserLocation } = useSelector((state) => state.users);
+
   const [viewport, setViewport] = useState({
     width: "100vw",
     height: "94vh",
@@ -15,6 +17,17 @@ function DashboardFire() {
     longitude: 31.26738,
     zoom: 8,
   });
+  useEffect(() => {
+    if (currentUserLocation != null) {
+      setViewport({
+        width: "100vw",
+        height: "94vh",
+        latitude: currentUserLocation.latitude,
+        longitude: currentUserLocation.longitude,
+        zoom: 8,
+      });
+    }
+  }, [currentUserLocation]);
 
   const users = useSelector((state) => state.firestore.data.users);
   const [usersData, setUsersData] = useState([]);
