@@ -3,10 +3,6 @@
 	{
 		"name": "covid-tracker",
 		"path": "."
-	},
-	{
-		"name": "mockdata",
-		"path": "../../../.Trash/mockdata"
 	}
 ],
   "settings": {}
