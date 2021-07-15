@@ -6,7 +6,7 @@ import { fetchUserLocation } from "./features/user/userSlice";
 import { useState, useEffect } from "react";
 import Dashboard from "./Dashboard";
 import UserForm from "./UserForm";
-import Loading from "./Loading";
+// import Loading from "./Loading";
 function App() {
   const dispatch = useDispatch();
   const { currentUserLocation, currentUser } = useSelector(
@@ -14,7 +14,6 @@ function App() {
   );
   const [navValue, setNavValue] = useState(1);
   const [currentPage, setCurrentPage] = useState(<Dashboard />);
-  const [loadingPage, setLoadingPage] = useState(<Loading />);
   useEffect(() => {
     dispatch(fetchUserLocation());
   }, [dispatch]);
@@ -22,32 +21,6 @@ function App() {
   useEffect(() => {}, [currentPage, navValue]);
   useEffect(() => {
     // if (currentUserLocation != null) setLocation(currentUserLocation);
-    if (currentUserLocation != null) {
-      setLoadingPage(
-        <div>
-          <Nav
-            justify
-            fill
-            variant="tabs"
-            defaultActiveKey={navValue}
-            onSelect={onSelect}
-          >
-            <Nav.Item>
-              <Nav.Link eventKey={1}>Dashboard</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey={2}>
-                User Information{" "}
-                <Badge variant={currentUser.userState.variant}>
-                  {currentUser.userState.type}
-                </Badge>
-              </Nav.Link>
-            </Nav.Item>
-          </Nav>
-          {currentPage}
-        </div>
-      );
-    }
   }, [currentUserLocation]);
 
   const onSelect = (key) => {
@@ -56,7 +29,30 @@ function App() {
     setNavValue(key);
   };
 
-  return <div className="App">{loadingPage}</div>;
+  return (
+    <div className="App">
+      <Nav
+        justify
+        fill
+        variant="tabs"
+        defaultActiveKey={navValue}
+        onSelect={onSelect}
+      >
+        <Nav.Item>
+          <Nav.Link eventKey={1}>Dashboard</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey={2}>
+            User Information{" "}
+            <Badge variant={currentUser.userState.variant}>
+              {currentUser.userState.type}
+            </Badge>
+          </Nav.Link>
+        </Nav.Item>
+      </Nav>
+      {currentPage}
+    </div>
+  );
 }
 
 export default App;
