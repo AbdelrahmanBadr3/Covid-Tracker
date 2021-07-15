@@ -23,7 +23,6 @@ Geocode.setLocationType(process.env.REACT_APP_GEOCODE_LOCATION_TYPE);
 const userSlice = createSlice({
   name: "users",
   initialState: {
-    usersData: [],
     isLoading: false,
     error: false,
     currentUser: {
@@ -46,10 +45,6 @@ const userSlice = createSlice({
       state.error = action.payload;
       state.isLoading = false;
     },
-    usersSuccess: (state, action) => {
-      state.usersData = action.payload;
-      state.isLoading = false;
-    },
     userLocationSuccess: (state, action) => {
       state.currentUserLocation = action.payload;
       state.isLoading = false;
@@ -61,18 +56,9 @@ const userSlice = createSlice({
   },
 });
 
-const {
-  usersSuccess,
-  userLocationSuccess,
-  createUserSuccess,
-  startLoading,
-  hasError,
-} = userSlice.actions;
+const { userLocationSuccess, createUserSuccess, startLoading, hasError } =
+  userSlice.actions;
 
-export const fetchUsers = (data) => async (dispatch) => {
-  dispatch(startLoading());
-  dispatch(usersSuccess(data));
-};
 export const createUser = (userData) => async (dispatch) => {
   dispatch(startLoading());
   dispatch(createUserSuccess(userData));
