@@ -19,7 +19,6 @@ function App() {
 
   useEffect(() => {}, [currentPage, navValue]);
   useEffect(() => {
-    // if (currentUserLocation != null) setLocation(currentUserLocation);
     if (currentUserLocation != null) console.log(currentUserLocation);
   }, [currentUserLocation]);
 

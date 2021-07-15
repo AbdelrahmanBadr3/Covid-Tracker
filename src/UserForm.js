@@ -10,7 +10,7 @@ import { createUser } from "./features/user/userSlice";
 import * as data from "./static-data/user-data.json";
 import { useFirestore } from "react-redux-firebase";
 
-function UserForm(props) {
+function UserForm() {
   const [validated, setValidated] = useState(false);
   const [userName, setUserName] = useState("");
   const [temperature, setTemperature] = useState("");
@@ -18,7 +18,6 @@ function UserForm(props) {
   const [gender, setGender] = useState("");
   const dispatch = useDispatch();
   const { currentUserLocation } = useSelector((state) => state.users);
-  // TODO: redundant data
   const [location, setLocation] = useState({
     latitude: "",
     longitude: "",
@@ -28,7 +27,6 @@ function UserForm(props) {
   const firestore = useFirestore();
   const userData = data.userStates;
 
-  // TODO: redundant data
   useEffect(() => {
     setLocation(currentUserLocation);
   }, [currentUserLocation]);
@@ -45,7 +43,6 @@ function UserForm(props) {
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
-      // return;
     }
     event.preventDefault();
     let userState = userData[0];
