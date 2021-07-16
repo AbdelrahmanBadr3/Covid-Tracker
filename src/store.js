@@ -10,7 +10,6 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-
 import {
   firestoreReducer as firestore,
   constants as rfConstants,

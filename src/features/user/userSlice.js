@@ -19,6 +19,7 @@ const defualtState = {
     address: "",
   },
 };
+
 const userSlice = createSlice({
   name: "users",
   initialState: {

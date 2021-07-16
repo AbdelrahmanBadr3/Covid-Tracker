@@ -20,7 +20,6 @@ function App() {
 
   useEffect(() => {}, [currentPage, navValue]);
   useEffect(() => {}, [currentUserLocation, currentUser]);
-
   const onSelect = (key) => {
     if (key === "1") setCurrentPage(<Dashboard />);
     else setCurrentPage(<UserForm />);
