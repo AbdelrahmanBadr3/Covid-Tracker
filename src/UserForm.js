@@ -8,7 +8,9 @@ import Col from "react-bootstrap/Col";
 import { useSelector, useDispatch } from "react-redux";
 import { createUser } from "./features/user/userSlice";
 import * as data from "./static-data/user-data.json";
-function UserForm(props) {
+import { useFirestore } from "react-redux-firebase";
+
+function UserForm() {
   const [validated, setValidated] = useState(false);
   const [userName, setUserName] = useState("");
   const [temperature, setTemperature] = useState("");
@@ -21,10 +23,11 @@ function UserForm(props) {
     longitude: "",
     address: "",
   });
+
+  const firestore = useFirestore();
   const userData = data.userStates;
 
   useEffect(() => {
-    // if (currentUserLocation != null) setLocation(currentUserLocation);
     setLocation(currentUserLocation);
   }, [currentUserLocation]);
 
@@ -41,7 +44,10 @@ function UserForm(props) {
       event.preventDefault();
       event.stopPropagation();
     }
-
+    event.preventDefault();
+    let userState = userData[0];
+    if (temperature >= 35 && temperature <= 37.6) userState = userData[1];
+    else if (temperature > 37.6 && temperature <= 42) userState = userData[2];
     let userInfoObject = {
       userName,
       temperature,
@@ -50,15 +56,17 @@ function UserForm(props) {
       latitude: location.latitude,
       longitude: location.longitude,
       address: location.address,
+      userState,
     };
-    console.log(userData);
-    console.log(data);
-    dispatch(createUser(userInfoObject));
-    // event.stopPropagation();
-    // event.preventDefault();
-    props.setUserInfo(userData[1]);
-
     setValidated(true);
+
+    dispatch(createUser(userInfoObject));
+    firestore
+      .collection("users")
+      .add(userInfoObject)
+      .then(() => {
+        event.target.submit();
+      });
   };
   return (
     <div

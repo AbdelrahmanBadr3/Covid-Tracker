@@ -4,37 +4,25 @@ import Badge from "react-bootstrap/Badge";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUserLocation } from "./features/user/userSlice";
 import { useState, useEffect } from "react";
-
 import Dashboard from "./Dashboard";
 import UserForm from "./UserForm";
+// import Loading from "./Loading";
 function App() {
   const dispatch = useDispatch();
-  const { currentUserLocation } = useSelector((state) => state.users);
-
+  const { currentUserLocation, currentUser } = useSelector(
+    (state) => state.users
+  );
   const [navValue, setNavValue] = useState(1);
   const [currentPage, setCurrentPage] = useState(<Dashboard />);
-  const [location, setLocation] = useState({
-    latitude: "",
-    longitude: "",
-    address: "",
-  });
-  const [user, setUser] = useState({
-    type: "Viewer",
-    variant: "primary",
-  });
-
   useEffect(() => {
     dispatch(fetchUserLocation());
   }, [dispatch]);
 
   useEffect(() => {}, [currentPage, navValue]);
-  useEffect(() => {
-    if (currentUserLocation != null) setLocation(currentUserLocation);
-  }, [currentUserLocation]);
-
+  useEffect(() => {}, [currentUserLocation, currentUser]);
   const onSelect = (key) => {
     if (key === "1") setCurrentPage(<Dashboard />);
-    else setCurrentPage(<UserForm setUserInfo={setUser} />);
+    else setCurrentPage(<UserForm />);
     setNavValue(key);
   };
 
@@ -52,7 +40,10 @@ function App() {
         </Nav.Item>
         <Nav.Item>
           <Nav.Link eventKey={2}>
-            User Information <Badge variant={user.variant}>{user.type}</Badge>
+            User Information{" "}
+            <Badge variant={currentUser.userState.variant}>
+              {currentUser.userState.type}
+            </Badge>
           </Nav.Link>
         </Nav.Item>
       </Nav>

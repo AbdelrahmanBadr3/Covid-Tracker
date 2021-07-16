@@ -4,17 +4,36 @@ import Geocode from "react-geocode";
 Geocode.setApiKey(process.env.REACT_APP_GEOCODE_TOKEN);
 Geocode.setLanguage(process.env.REACT_APP_GEOCODE_LANGUAGE);
 Geocode.setLocationType(process.env.REACT_APP_GEOCODE_LOCATION_TYPE);
+const defualtState = {
+  isLoading: false,
+  error: false,
+  currentUser: {
+    userState: {
+      type: "Viewer",
+      variant: "primary",
+    },
+  },
+  currentUserLocation: {
+    latitude: 50.8953512,
+    longitude: 50.26738,
+    address: "",
+  },
+};
 
 const userSlice = createSlice({
   name: "users",
   initialState: {
-    usersData: [],
     isLoading: false,
     error: false,
-    currentUser: null,
+    currentUser: {
+      userState: {
+        type: "Viewer",
+        variant: "primary",
+      },
+    },
     currentUserLocation: {
-      latitude: "",
-      longitude: "",
+      latitude: 50.8953512,
+      longitude: 50.26738,
       address: "",
     },
   },
@@ -26,39 +45,29 @@ const userSlice = createSlice({
       state.error = action.payload;
       state.isLoading = false;
     },
-    usersSuccess: (state, action) => {
-      state.usersData = action.payload;
-      state.isLoading = false;
-    },
-    // userSuccess: (state, action) => {
-    //   state.currentUser = action.payload[0];
-    //   state.isLoading = false;
-    // },
     userLocationSuccess: (state, action) => {
       state.currentUserLocation = action.payload;
       state.isLoading = false;
     },
     createUserSuccess: (state, action) => {
-      console.log(action.payload);
       state.currentUser = action.payload;
+      state.isLoading = false;
+    },
+    rest: (state) => {
+      state = defualtState;
+      console.log(state);
       state.isLoading = false;
     },
   },
 });
 
-const {
-  usersSuccess,
-  //   userSuccess,
-  userLocationSuccess,
-  createUserSuccess,
-  startLoading,
-  hasError,
-} = userSlice.actions;
+const { userLocationSuccess, createUserSuccess, startLoading, hasError, rest } =
+  userSlice.actions;
 
-export const fetchUsers = () => async (dispatch) => {
+export const restUser = () => async (dispatch) => {
   dispatch(startLoading());
+  dispatch(rest());
 };
-
 export const createUser = (userData) => async (dispatch) => {
   dispatch(startLoading());
   dispatch(createUserSuccess(userData));
@@ -94,24 +103,14 @@ export const fetchUserLocation = () => async (dispatch) => {
           longitude,
           address,
         };
-        console.log(location_);
         dispatch(userLocationSuccess(location_));
       },
       (error) => {
         console.error(error);
+        dispatch(hasError(error.message));
       }
     );
   });
 };
-// export const fetchUserByID = (id) => async (dispatch) => {
-//   dispatch(startLoading());
 
-//   //   try {
-//   //     await api
-//   //       .get("/categories/" + id)
-//   //       .then((response) => dispatch(categorySuccess(response.data)));
-//   //   } catch (e) {
-//   //     dispatch(hasError(e.message));
-//   //   }
-// };
 export default userSlice.reducer;
