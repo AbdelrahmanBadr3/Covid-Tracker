@@ -4,22 +4,21 @@ import Geocode from "react-geocode";
 Geocode.setApiKey(process.env.REACT_APP_GEOCODE_TOKEN);
 Geocode.setLanguage(process.env.REACT_APP_GEOCODE_LANGUAGE);
 Geocode.setLocationType(process.env.REACT_APP_GEOCODE_LOCATION_TYPE);
-// const defualtState = {
-//   usersData: [],
-//   isLoading: false,
-//   error: false,
-//   currentUser: {
-//     userState: {
-//       type: "Viewer",
-//       variant: "primary",
-//     },
-//   },
-//   currentUserLocation: {
-//     latitude: "",
-//     longitude: "",
-//     address: "",
-//   },
-// };
+const defualtState = {
+  isLoading: false,
+  error: false,
+  currentUser: {
+    userState: {
+      type: "Viewer",
+      variant: "primary",
+    },
+  },
+  currentUserLocation: {
+    latitude: 50.8953512,
+    longitude: 50.26738,
+    address: "",
+  },
+};
 const userSlice = createSlice({
   name: "users",
   initialState: {
@@ -32,8 +31,8 @@ const userSlice = createSlice({
       },
     },
     currentUserLocation: {
-      latitude: "",
-      longitude: "",
+      latitude: 50.8953512,
+      longitude: 50.26738,
       address: "",
     },
   },
@@ -53,12 +52,21 @@ const userSlice = createSlice({
       state.currentUser = action.payload;
       state.isLoading = false;
     },
+    rest: (state) => {
+      state = defualtState;
+      console.log(state);
+      state.isLoading = false;
+    },
   },
 });
 
-const { userLocationSuccess, createUserSuccess, startLoading, hasError } =
+const { userLocationSuccess, createUserSuccess, startLoading, hasError, rest } =
   userSlice.actions;
 
+export const restUser = () => async (dispatch) => {
+  dispatch(startLoading());
+  dispatch(rest());
+};
 export const createUser = (userData) => async (dispatch) => {
   dispatch(startLoading());
   dispatch(createUserSuccess(userData));

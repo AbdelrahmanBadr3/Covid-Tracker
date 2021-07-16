@@ -19,9 +19,7 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {}, [currentPage, navValue]);
-  useEffect(() => {
-    // if (currentUserLocation != null) setLocation(currentUserLocation);
-  }, [currentUserLocation]);
+  useEffect(() => {}, [currentUserLocation, currentUser]);
 
   const onSelect = (key) => {
     if (key === "1") setCurrentPage(<Dashboard />);
