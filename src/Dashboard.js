@@ -11,7 +11,6 @@ import mapboxgl from "mapbox-gl";
 
 mapboxgl.workerClass = MapboxWorker;
 function DashboardFire() {
-  const { currentUserLocation } = useSelector((state) => state.users);
   useFirestoreConnect(["users"]);
   const { currentUserLocation } = useSelector((state) => state.users);
 
