@@ -5,7 +5,11 @@ import covidIcon from "./Assets/covid.png";
 import safeIcon from "./Assets/safe.png";
 import { useSelector } from "react-redux";
 import { useFirestoreConnect } from "react-redux-firebase";
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import MapboxWorker from "worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker"; // Load worker code separately with worker-loade
+import mapboxgl from "mapbox-gl";
 
+mapboxgl.workerClass = MapboxWorker;
 function DashboardFire() {
   const { currentUserLocation } = useSelector((state) => state.users);
   useFirestoreConnect(["users"]);
