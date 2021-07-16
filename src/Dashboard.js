@@ -5,7 +5,11 @@ import covidIcon from "./Assets/covid.png";
 import safeIcon from "./Assets/safe.png";
 import { useSelector } from "react-redux";
 import { useFirestoreConnect } from "react-redux-firebase";
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import MapboxWorker from "worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker"; // Load worker code separately with worker-loade
+import mapboxgl from "mapbox-gl";
 
+mapboxgl.workerClass = MapboxWorker;
 function DashboardFire() {
   useFirestoreConnect(["users"]);
   const { currentUserLocation } = useSelector((state) => state.users);
@@ -13,11 +17,12 @@ function DashboardFire() {
   const [viewport, setViewport] = useState({
     width: "100vw",
     height: "94vh",
-    latitude: 29.8953512,
-    longitude: 31.26738,
+    latitude: 50.8953512,
+    longitude: 50.26738,
     zoom: 8,
   });
   useEffect(() => {
+
     if (currentUserLocation != null) {
       setViewport({
         width: "100vw",

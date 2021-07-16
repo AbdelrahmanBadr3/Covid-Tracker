@@ -6,6 +6,7 @@ import { fetchUserLocation } from "./features/user/userSlice";
 import { useState, useEffect } from "react";
 import Dashboard from "./Dashboard";
 import UserForm from "./UserForm";
+// import Loading from "./Loading";
 function App() {
   const dispatch = useDispatch();
   const { currentUserLocation, currentUser } = useSelector(
@@ -18,10 +19,7 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {}, [currentPage, navValue]);
-  useEffect(() => {
-    if (currentUserLocation != null) console.log(currentUserLocation);
-  }, [currentUserLocation]);
-
+  useEffect(() => {}, [currentUserLocation, currentUser]);
   const onSelect = (key) => {
     if (key === "1") setCurrentPage(<Dashboard />);
     else setCurrentPage(<UserForm />);
