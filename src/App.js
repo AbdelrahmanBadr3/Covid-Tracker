@@ -28,7 +28,7 @@ function App() {
   ]);
 
   useEffect(() => {
-    if (currentUserLocation != null && currentUserLocation.address) {
+    if (currentUserLocation != null && currentUserLocation.address!="") {
       setLoadedPage(
         <div>
           <Nav
