@@ -71,9 +71,11 @@ function App() {
   };
 
   return <div className="App">
-    // TODO To add loading page uncommet the following lines
-     {/*loadedPage*/}
-    // TODO To add loading page commet the following lines
+   
+     {/* TODO To add loading page uncommet the following lines
+     loadedPage
+      TODO To add loading page commet the following lines
+     */}
      <div>
           <Nav
             justify
