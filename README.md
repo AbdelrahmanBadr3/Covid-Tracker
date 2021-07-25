@@ -29,7 +29,7 @@ REACT_APP_GEOCODE_LOCATION_TYPE="ROOFTOP"
 | Web Explorer    | 9             |
 | Web Opera       | 10.6          |
 | Web Safari      | 5             |
-| Android Chrome  | 5             |
-| Android Firefox | 5             |
-| Android Opera   | 5             |
-| Samsung Internet| 5             |
+| Android Chrome  | 18            |
+| Android Firefox | 4             |
+| Android Opera   | 11            |
+| Samsung Internet| 1             |
