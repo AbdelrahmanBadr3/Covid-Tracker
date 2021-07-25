@@ -20,3 +20,16 @@ REACT_APP_GEOCODE_TOKEN="AIzaSyAqi8eo0k5lHtZLZqWUSnlG0YQj-MF8bNE"
 REACT_APP_GEOCODE_LANGUAGE="en"
 REACT_APP_GEOCODE_LOCATION_TYPE="ROOFTOP"
 ```
+### Browser compatibility
+| Browser         | Version       |
+| -------------   |:-------------:|
+| Web Chrome      | 5             |
+| Web Edge        | 12            |
+| Web Firefox     | 3.5           |
+| Web Explorer    | 9             |
+| Web Opera       | 10.6          |
+| Web Safari      | 5             |
+| Android Chrome  | 5             |
+| Android Firefox | 5             |
+| Android Opera   | 5             |
+| Samsung Internet| 5             |
