@@ -1,0 +1,31 @@
+.Load-container{
+  min-height:95vh;
+  display:flex;
+  justify-content:center;
+  align-items:center
+}
+.Load-logo {
+  height: 40vmin;
+  pointer-events: none;
+  vertical-align: middle
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .Load-logo {
+    animation: Load-logo-spin infinite 20s linear;
+  }
+}
+
+@keyframes Load-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.Load-text{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
