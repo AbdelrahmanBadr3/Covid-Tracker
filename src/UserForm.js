@@ -6,7 +6,7 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useSelector, useDispatch } from "react-redux";
-import { createUser } from "./features/user/userSlice";
+import { createUser, fetchUserID } from "./features/user/userSlice";
 import * as data from "./static-data/user-data.json";
 import { useFirestore } from "react-redux-firebase";
 
@@ -17,7 +17,9 @@ function UserForm() {
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const dispatch = useDispatch();
-  const { currentUserLocation } = useSelector((state) => state.users);
+  const { currentUserLocation, currentUserID } = useSelector(
+    (state) => state.users
+  );
   const [location, setLocation] = useState({
     latitude: "",
     longitude: "",
@@ -61,12 +63,29 @@ function UserForm() {
     setValidated(true);
 
     dispatch(createUser(userInfoObject));
-    firestore
-      .collection("users")
-      .add(userInfoObject)
-      .then(() => {
-        event.target.submit();
-      });
+    if (!currentUserID)
+      firestore
+        .collection("users")
+        .add(userInfoObject)
+        .then(function (docRef) {
+          dispatch(fetchUserID(docRef.id));
+          event.target.submit();
+          console.log("Document written with ID: ", docRef.id);
+        })
+        .catch(function (error) {
+          console.error("Error Happend while saving the user");
+        });
+    else
+      firestore
+        .collection("users")
+        .doc(currentUserID)
+        .update(userInfoObject)
+        .then(() => {
+          event.target.submit();
+        })
+        .catch(function (error) {
+          console.error("Error Happend while updating the user");
+        });
   };
   return (
     <div
@@ -123,6 +142,7 @@ function UserForm() {
                   required
                   min="35.0"
                   max="42.0"
+                  step="0.01"
                 />
                 <Form.Text id="TemperatureHelpBlock" muted>
                   Normal body temperature can have a range, from 36.1°C to

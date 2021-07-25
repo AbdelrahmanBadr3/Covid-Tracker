@@ -18,6 +18,8 @@ const defualtState = {
     longitude: 50.26738,
     address: "",
   },
+  currentUserID: "",
+  isLocationAllowed: "",
 };
 
 const userSlice = createSlice({
@@ -36,6 +38,8 @@ const userSlice = createSlice({
       longitude: 50.26738,
       address: "",
     },
+    currentUserID: "",
+    isLocationAllowed: "",
   },
   reducers: {
     startLoading: (state) => {
@@ -49,24 +53,42 @@ const userSlice = createSlice({
       state.currentUserLocation = action.payload;
       state.isLoading = false;
     },
+    userIDSuccess: (state, action) => {
+      state.currentUserID = action.payload;
+      state.isLoading = false;
+    },
+    isLocationSuccess: (state, action) => {
+      state.isLocationAllowed = action.payload;
+      state.isLoading = false;
+    },
     createUserSuccess: (state, action) => {
       state.currentUser = action.payload;
       state.isLoading = false;
     },
     rest: (state) => {
       state = defualtState;
-      console.log(state);
       state.isLoading = false;
     },
   },
 });
 
-const { userLocationSuccess, createUserSuccess, startLoading, hasError, rest } =
-  userSlice.actions;
+const {
+  userLocationSuccess,
+  createUserSuccess,
+  startLoading,
+  hasError,
+  rest,
+  isLocationSuccess,
+  userIDSuccess,
+} = userSlice.actions;
 
 export const restUser = () => async (dispatch) => {
   dispatch(startLoading());
   dispatch(rest());
+};
+export const fetchUserID = (userID) => async (dispatch) => {
+  dispatch(startLoading());
+  dispatch(userIDSuccess(userID));
 };
 export const createUser = (userData) => async (dispatch) => {
   dispatch(startLoading());
@@ -75,6 +97,9 @@ export const createUser = (userData) => async (dispatch) => {
 export const fetchUserLocation = () => async (dispatch) => {
   dispatch(startLoading());
   let latitude, longitude, address;
+  navigator.permissions.query({ name: "geolocation" }).then((response) => {
+    dispatch(isLocationSuccess(response.state));
+  });
   navigator.geolocation.getCurrentPosition(function (position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
