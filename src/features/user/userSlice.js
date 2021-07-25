@@ -53,6 +53,10 @@ const userSlice = createSlice({
       state.currentUserLocation = action.payload;
       state.isLoading = false;
     },
+    userIDSuccess: (state, action) => {
+      state.currentUserID = action.payload;
+      state.isLoading = false;
+    },
     isLocationSuccess: (state, action) => {
       state.isLocationAllowed = action.payload;
       state.isLoading = false;
@@ -75,11 +79,16 @@ const {
   hasError,
   rest,
   isLocationSuccess,
+  userIDSuccess,
 } = userSlice.actions;
 
 export const restUser = () => async (dispatch) => {
   dispatch(startLoading());
   dispatch(rest());
+};
+export const fetchUserID = (userID) => async (dispatch) => {
+  dispatch(startLoading());
+  dispatch(userIDSuccess(userID));
 };
 export const createUser = (userData) => async (dispatch) => {
   dispatch(startLoading());
