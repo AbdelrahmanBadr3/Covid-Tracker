@@ -6,6 +6,7 @@ import { fetchUserLocation } from "./features/user/userSlice";
 import { useState, useEffect } from "react";
 import Dashboard from "./Dashboard";
 import UserForm from "./UserForm";
+// TODO To add loading page uncommet the following lines
 // import Loading from "./Loading";
 function App() {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ function App() {
   );
   const [navValue, setNavValue] = useState(1);
   const [currentPage, setCurrentPage] = useState(<Dashboard />);
+  // TODO To add loading page un commet the following lines                                               
 //   const [loadedPage, setLoadedPage] = useState(<Loading />);
 
   useEffect(() => {
@@ -26,7 +28,7 @@ function App() {
     currentUserLocation,
     currentUser,
   ]);
-
+// TODO To add loading page uncommet the following lines
 //   useEffect(() => {
 //     if (currentUserLocation != null && currentUserLocation.address!="") {
 //       setLoadedPage(
@@ -69,7 +71,9 @@ function App() {
   };
 
   return <div className="App">
+    // TODO To add loading page uncommet the following lines
 //     {loadedPage}
+    // TODO To add loading page commet the following lines
      <div>
           <Nav
             justify
